@@ -1,7 +1,6 @@
 import 'package:aurasecure/screens/Dashboard.dart';
 
 import 'package:aurasecure/screens/Privacy_policy.dart';
-import 'package:aurasecure/screens/authscreens/loginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -387,7 +386,7 @@ class _SignUpscreenState extends State<SignUpscreen> {
             ),
 
             const SizedBox(height: 15),
-                Text("by continuing, i agree to the "),
+            Text("by continuing, i agree to the "),
             Container(
               child: Row(
                 children: [
@@ -400,10 +399,10 @@ class _SignUpscreenState extends State<SignUpscreen> {
                           _isChecked = value!;
                         });
                       },
-                      controlAffinity: ListTileControlAffinity.leading, // Checkbox before text
+                      controlAffinity: ListTileControlAffinity
+                          .leading, // Checkbox before text
                     ),
                   ),
-
                   InkWell(
                     onTap: () {
                       showDialog(
@@ -414,20 +413,24 @@ class _SignUpscreenState extends State<SignUpscreen> {
                             // Use a ConstrainedBox to limit the height of the dialog
                             content: ConstrainedBox(
                               constraints: BoxConstraints(
-                                maxHeight: MediaQuery.of(context).size.height * 0.8, // Limit height to 80% of screen height
+                                maxHeight: MediaQuery.of(context).size.height *
+                                    0.8, // Limit height to 80% of screen height
                               ),
                               child: SingleChildScrollView(
-                                physics: AlwaysScrollableScrollPhysics(), // Ensures it's always scrollable
+                                physics:
+                                    AlwaysScrollableScrollPhysics(), // Ensures it's always scrollable
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
-                                  child: Text(privacyPolicyText), // Use the imported privacy policy text here
+                                  child: Text(
+                                      privacyPolicyText), // Use the imported privacy policy text here
                                 ),
                               ),
                             ),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop(); // Close the dialog
+                                  Navigator.of(context)
+                                      .pop(); // Close the dialog
                                 },
                                 child: const Text("Close"),
                               ),
@@ -441,10 +444,6 @@ class _SignUpscreenState extends State<SignUpscreen> {
                       child: const Text("Privacy and Policy"),
                     ),
                   ),
-
-
-
-
                 ],
               ),
             ),

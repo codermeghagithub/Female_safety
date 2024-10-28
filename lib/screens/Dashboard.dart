@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aurasecure/screens/authscreens/profile.dart';
+
 class Dashboard extends StatefulWidget {
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -36,12 +36,14 @@ class _DashboardState extends State<Dashboard> {
               decoration: BoxDecoration(
                 color: Colors.pinkAccent,
               ),
-              child: Text('Drawer Header',
-              style:TextStyle(color:Colors.white,fontSize:24),),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
             ),
             ListTile(
               title: const Text('Profile'),
-              leading:Icon(Icons.person),
+              leading: Icon(Icons.person),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -49,16 +51,15 @@ class _DashboardState extends State<Dashboard> {
             ),
             ListTile(
               title: const Text('SOS'),
-              leading:Icon(Icons.phone),
+              leading: Icon(Icons.phone),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
-
             ListTile(
               title: const Text('panic'),
-              leading:Icon(Icons.warning),
+              leading: Icon(Icons.warning),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -66,7 +67,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             ListTile(
               title: const Text('camera'),
-              leading:Icon(Icons.camera_alt),
+              leading: Icon(Icons.camera_alt),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -74,7 +75,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             ListTile(
               title: const Text('Location'),
-              leading:Icon(Icons.location_history),
+              leading: Icon(Icons.location_history),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -82,7 +83,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             ListTile(
               title: const Text('log out'),
-              leading:Icon(Icons.logout),
+              leading: Icon(Icons.logout),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -202,9 +203,9 @@ class _DashboardState extends State<Dashboard> {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: isSafe
                                         ? const Color.fromARGB(
-                                        255, 255, 255, 255)
+                                            255, 255, 255, 255)
                                         : const Color.fromARGB(
-                                        255, 202, 56, 128),
+                                            255, 202, 56, 128),
                                   ),
                                 ),
                                 SizedBox(width: 10),
@@ -223,7 +224,7 @@ class _DashboardState extends State<Dashboard> {
                                         ? const Color.fromARGB(
                                             255, 255, 255, 255)
                                         : const Color.fromARGB(
-                                        255, 202, 56, 128),
+                                            255, 202, 56, 128),
                                   ),
                                 ),
                               ],

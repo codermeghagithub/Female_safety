@@ -1,6 +1,5 @@
 import 'package:aurasecure/screens/Dashboard.dart';
-import 'package:aurasecure/screens/Privacy_policy.dart';
-import 'package:aurasecure/screens/authscreens/profile.dart';
+
 import 'package:aurasecure/screens/authscreens/SignpuScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -240,7 +239,9 @@ class _LoginscreenState extends State<Loginscreen> {
                   ),
                 ).centered(),
 
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
 
                 // RichText(
                 //   text: TextSpan(
@@ -293,7 +294,6 @@ class _LoginscreenState extends State<Loginscreen> {
                           // Add your navigation or action logic here
                           Get.to(SignUpscreen());
                         },
-
                         child: Text(
                           "Sign Up",
                           style: TextStyle(
