@@ -1,4 +1,6 @@
+import 'package:aurasecure/screens/authscreens/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -16,6 +18,7 @@ class _DashboardState extends State<Dashboard> {
   ];
   List dataTitle = ["SOS", "PANIC", "CAMERA", "LOCATION"];
   bool isSafe = true;
+  bool isNotSafe = false;
 // bool Primary;
 
   @override
@@ -25,88 +28,71 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.pinkAccent,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              title: const Text('Profile'),
-              leading: Icon(Icons.person),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('SOS'),
-              leading: Icon(Icons.phone),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('panic'),
-              leading: Icon(Icons.warning),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('camera'),
-              leading: Icon(Icons.camera_alt),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Location'),
-              leading: Icon(Icons.location_history),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('log out'),
-              leading: Icon(Icons.logout),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
+          child: Container(
+              color: Theme.of(context).canvasColor,
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                      padding: EdgeInsets.zero,
+                      child: Container(
+                          color: const Color.fromARGB(255, 224, 127, 160),
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 40,
+                                backgroundImage: NetworkImage(
+                                    'https://purepng.com/public/uploads/large/purepng.com-female-studentstudentcollege-studentschool-studentfemale-student-14215269231647tn6r.png'),
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Rima Pal',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text('abc@gmail.com')
+                                ],
+                              )
+                            ],
+                          ))),
+                  ListTile(
+                    onTap: () {
+                      Get.to(ProfileWidget());
+                    },
+                    leading: Icon(Icons.person),
+                    title: const Text('Profile'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.phone),
+                    title: const Text('SOS'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.warning),
+                    title: const Text('Panic'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.camera_alt),
+                    title: const Text('Camera'),
+                  ),
+                  ListTile(
+                    leading:Icon(Icons.location_city) ,
+                    title:const Text('Location')
+                  ),
+                  ListTile(
+                  //   onTap(){
+                  //     Get.to(LogoutWidget());
+                  // },
+                    leading: Icon(Icons.logout),
+                    title: const Text('log out '),
+                  )
+                ],
+              ))),
       body: Container(
-        // child:Column(
-        //   children: [
-        //     Container(
-        //       decoration:BoxDecoration(
-        //         color:const Color.fromARGB(255, 247, 187, 207)
-        //       )
-        //     )
-        //     SizedBox(
-        //       height:height*0.25,
-        //       width:width
-        //     )
-        //   ],
-        // )
-
         color: const Color.fromARGB(221, 234, 179, 213), // Background color
         height: height,
         width: width,
@@ -191,43 +177,96 @@ class _DashboardState extends State<Dashboard> {
                             Row(
                               children: [
                                 ElevatedButton(
-                                  onPressed: isSafe
-                                      ? null
-                                      : () {
-                                          setState(() {
-                                            isSafe = true;
-                                          });
-                                          print('Safe button clicked');
-                                        },
-                                  child: Text("I am Safe"),
+                                  onPressed: () {
+                                    setState(() {
+                                      isNotSafe =
+                                          !isNotSafe; // Toggle the "Not Safe" state
+                                    });
+                                    print(isNotSafe
+                                        ? 'I am Not Safe activated'
+                                        : 'I am Not Safe deactivated');
+                                  },
+                                  child: Text("I am Not Safe"),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: isSafe
+                                    backgroundColor: isNotSafe
                                         ? const Color.fromARGB(
-                                            255, 255, 255, 255)
-                                        : const Color.fromARGB(
-                                            255, 202, 56, 128),
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                ElevatedButton(
-                                  onPressed: isSafe
-                                      ? () {
-                                          setState(() {
-                                            isSafe = false;
-                                          });
-                                          print('Not Safe button clicked');
-                                        }
-                                      : null,
-                                  child: Text(" I am Not Safe"),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: !isSafe
-                                        ? const Color.fromARGB(
-                                            255, 255, 255, 255)
-                                        : const Color.fromARGB(
-                                            255, 202, 56, 128),
+                                            255, 234, 12, 12) // Red when active
+                                        : const Color.fromARGB(255, 255, 255,
+                                            255), // White when inactive
+
                                   ),
                                 ),
                               ],
+
+                              //         children: [
+                              //         ElevatedButton(
+                              //         onPressed: () {
+                              //   setState(() {
+                              //   isSafe = true; // Set "I am Safe" state to active
+                              //   });
+                              //   },
+                              //     child: Text("I am Safe"),
+                              //     style: ElevatedButton.styleFrom(
+                              //       backgroundColor: isSafe
+                              //           ? const Color.fromARGB(255, 131, 197, 82) // Green when safe
+                              //           : Colors.grey,
+                              //     ),
+                              //   ),
+                              //   SizedBox(width: 10),
+                              //   ElevatedButton(
+                              //     onPressed: () {
+                              //       setState(() {
+                              //         isSafe = false; // Set "I am Not Safe" state to active
+                              //       });
+                              //       print('Not Safe button clicked');
+                              //     },
+                              //     child: Text("I am Not Safe"),
+                              //     style: ElevatedButton.styleFrom(
+                              //       backgroundColor: !isSafe
+                              //           ? const Color.fromARGB(255, 202, 56, 128) // Red when not safe
+                              //           : Colors.grey,
+                              //     )
+                              //,
+                              //   ),
+                              // ],
+                              //
+
+                              // children: [
+                              //
+                              //    ElevatedButton(
+                              //     onPressed:  () {S
+                              //             setState(() {
+                              //               isSafe =true;
+                              //             });
+                              //           },
+                              //     child: Text("I am Safe"),
+                              //     style: ElevatedButton.styleFrom(
+                              //       backgroundColor:isSafe
+                              //           ? const Color.fromARGB(
+                              //               255, 131, 197, 82)
+                              //           : Colors.grey,
+                              //     ),
+                              //   ),
+                              //   SizedBox(width: 10),
+                              //   ElevatedButton(
+                              //     onPressed: isSafe
+                              //         ? null
+                              //         : () {
+                              //             setState(() {
+                              //               isSafe = true;
+                              //             });
+                              //             print('Not Safe button clicked');
+                              //           },
+                              //     child: Text(" I am Not Safe"),
+                              //     style: ElevatedButton.styleFrom(
+                              //       backgroundColor:isSafe
+                              //           ? const Color.fromARGB(
+                              //               255, 255, 255, 255)
+                              //           : const Color.fromARGB(
+                              //               255, 202, 56, 128),
+                              //     ),
+                              //   ),
+                              // ],
                             ),
                           ],
                         ),
@@ -262,9 +301,9 @@ class _DashboardState extends State<Dashboard> {
                 // ),
                 //     ],
                 //   ),
-                // ),
+                // ),// Bottom section of the dashboard
 
-                // Bottom section of the dashboard
+
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,

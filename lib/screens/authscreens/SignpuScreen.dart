@@ -15,7 +15,8 @@ class SignUpscreen extends StatefulWidget {
 }
 
 class _SignUpscreenState extends State<SignUpscreen> {
-  bool _isChecked = false; // Track checkbox state
+  bool _isChecked = false; //Track checkbox state
+  bool _isPasswordVisible = false;
   String? _selectedGender; // Track selected gender
   final _formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
@@ -26,9 +27,44 @@ class _SignUpscreenState extends State<SignUpscreen> {
       TextEditingController(); // Moved here
   final TextEditingController cityController = TextEditingController();
   final TextEditingController landmarkController = TextEditingController();
-  final TextEditingController pincodeController =
-      TextEditingController(); // Added for city name
-// Added for city name
+  final TextEditingController pincodeController =TextEditingController(); // Added for city name
+final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  String? confirmPasswordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (value != passwordController.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
+
+  
+  String? _validationMessage;
+
+  // Validator method for password
+  String? passwordValidator(String? value) {
+    // Regular expression for password validation
+    final RegExp passwordRegEx = RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+    );
+
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    } else if (!passwordRegEx.hasMatch(value)) {
+      return 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.';
+    }
+    return null;
+  }
+
+  void _validatePassword() {
+    setState(() {
+      _validationMessage = passwordValidator(passwordController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -123,6 +159,93 @@ class _SignUpscreenState extends State<SignUpscreen> {
                 ),
               ),
             ),
+
+            // const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 2.0, horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFedf0f8),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: TextFormField(
+                      controller: passwordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: !_isPasswordVisible,
+                      validator: (value) {
+                        return passwordValidator(value); // Validate password here
+                      },
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible =
+                                  !_isPasswordVisible; // Toggle password visibility
+                            });
+                          },
+                        ),
+                        border: InputBorder.none,
+                        hintText: "Password",
+                        hintStyle: GoogleFonts.comfortaa(
+                            color: const Color(0xFFb2b7bf), fontSize: 18.0),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // Validation message displayed outside the Container
+                if (_validationMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      _validationMessage!,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+
+
+                // Confirm Password Field
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFedf0f8),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: TextFormField(
+                      controller: confirmPasswordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: !_isPasswordVisible,
+                      validator: (value) {
+                        return confirmPasswordValidator(value); // Validate confirm password
+                      },
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible; // Toggle visibility
+                            });
+                          },
+                        ),
+                        border: InputBorder.none,
+                        hintText: "Confirm Password",
+                        hintStyle: GoogleFonts.comfortaa(
+                            color: const Color(0xFFb2b7bf), fontSize: 18.0),
+                      ),
+                    ),
+                  ),
+                ),
 
             // First Name and Last Name Row
             Padding(
